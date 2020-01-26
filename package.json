@@ -1,0 +1,18 @@
+{
+  "name": "canvastracker",
+  "version": "1.0.0",
+  "description": "Canvas drawing app for mobile; uploads traces of touch events",
+  "main": "canvastrack.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "canvas",
+    "mobile"
+  ],
+  "author": "David Thaler",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
