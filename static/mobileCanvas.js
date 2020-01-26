@@ -32,10 +32,22 @@ function drawMode(){
     isDrawing = !isDrawing
     drawBtn.classList.toggle('btn-success')
     drawBtn.classList.toggle('btn-primary')
+    postTime()
 }
 
 function clearCanvas(){
     context.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+function postTime(){
+    let what = (isDrawing ? 'start' : 'end')
+    let body = {}
+    body[what] = Date()
+    fetch('/data', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+    })
 }
 
 window.addEventListener('load', function(){
