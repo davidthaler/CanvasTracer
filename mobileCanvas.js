@@ -19,15 +19,23 @@ function draw(e){
 }
 
 function drawMode(){
+    let drawBtn = document.getElementById('drawBtn')
     if(isDrawing){
         canvas.removeEventListener('touchstart', start, false)
         canvas.removeEventListener('touchmove', draw, false)
+        drawBtn.textContent = 'Start Drawing'
     }else{
         canvas.addEventListener('touchstart', start, false)
         canvas.addEventListener('touchmove', draw, false)
+        drawBtn.textContent = 'Stop Drawing'
     }
     isDrawing = !isDrawing
-    document.getElementById('drawBtn').classList.toggle('active')
+    drawBtn.classList.toggle('btn-success')
+    drawBtn.classList.toggle('btn-primary')
+}
+
+function clearCanvas(){
+    context.clearRect(0, 0, canvas.width, canvas.height)
 }
 
 window.addEventListener('load', function(){
@@ -36,6 +44,7 @@ window.addEventListener('load', function(){
     canvas.height = canvas.parentElement.clientHeight
     context = canvas.getContext('2d')
     document.getElementById('drawBtn').addEventListener('click', drawMode)
+    document.getElementById('clearBtn').addEventListener('click', clearCanvas)
     document.getElementById('picker')
             .addEventListener('change', function(){
                 context.strokeStyle = this.value
