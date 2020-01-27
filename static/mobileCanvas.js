@@ -23,6 +23,7 @@ function start(e){
     context.beginPath()
     context.moveTo(x, y)
     startCurve(x, y)
+    postTime('curveStart')
 }
 
 function draw(e){
@@ -33,21 +34,28 @@ function draw(e){
     addPoint(x, y)
 }
 
+function finish(e){
+    e.preventDefault()
+    //postTime('curveEnd')
+    postCurve()
+}
+
 function drawMode(){
     let drawBtn = document.getElementById('drawBtn')
     if(isDrawing){
         canvas.removeEventListener('touchstart', start, false)
         canvas.removeEventListener('touchmove', draw, false)
+        canvas.removeEventListener('touchend', finish, false)
         drawBtn.textContent = 'Start Drawing'
     }else{
         canvas.addEventListener('touchstart', start, false)
         canvas.addEventListener('touchmove', draw, false)
+        canvas.addEventListener('touchend', finish, false)
         drawBtn.textContent = 'Stop Drawing'
     }
     isDrawing = !isDrawing
     drawBtn.classList.toggle('btn-success')
     drawBtn.classList.toggle('btn-primary')
-    postTime()
 }
 
 function redraw(){
@@ -78,14 +86,22 @@ function reset(){
     clearCanvas()
 }
 
-function postTime(){
-    let what = (isDrawing ? 'start' : 'end')
+function postTime(what){
     let body = {}
-    body[what] = Date()
+    body[what] = Date.now()
     fetch('/data', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
+    })
+}
+
+function postCurve(){
+    if(data.length == 0) return
+    fetch('/data', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data[data.length - 1])
     })
 }
 
