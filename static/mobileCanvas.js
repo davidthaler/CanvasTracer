@@ -69,6 +69,8 @@ function redraw(){
         }
         context.stroke()
     }
+    document.getElementById('picker').dispatchEvent(new Event('change'))
+    document.getElementById('widthSelector').dispatchEvent(new Event('change'))
 }
 
 function clearCanvas(){
