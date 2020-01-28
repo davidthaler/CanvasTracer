@@ -26,7 +26,6 @@ function start(e){
     context.beginPath()
     context.moveTo(x, y)
     startCurve(x, y)
-    postTime('curveStart')
 }
 
 function draw(e){
@@ -35,12 +34,6 @@ function draw(e){
     context.lineTo(x, y)
     context.stroke()
     addPoint(x, y)
-}
-
-function finish(e){
-    e.preventDefault()
-    //postTime('curveEnd')
-    postCurve()
 }
 
 function drawMode(){
@@ -91,22 +84,11 @@ function reset(){
     clearCanvas()
 }
 
-function postTime(what){
-    let body = {}
-    body[what] = Date.now()
+function postShape(){
     fetch('/data', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(body)
-    })
-}
-
-function postCurve(){
-    if(data.length == 0) return
-    fetch('/data', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data[data.length - 1])
+        body: JSON.stringify(data)
     })
 }
 
@@ -118,6 +100,7 @@ window.addEventListener('load', function(){
     document.getElementById('drawBtn').addEventListener('click', drawMode)
     document.getElementById('clearBtn').addEventListener('click', reset)
     document.getElementById('undoBtn').addEventListener('click', undo)
+    document.getElementById('sendBtn').addEventListener('click', postShape)
     document.getElementById('picker')
             .addEventListener('change', function(){
                 context.strokeStyle = this.value
