@@ -9,12 +9,15 @@ function startCurve(x, y){
     data.push({
         lineWidth: context.lineWidth,
         color: context.strokeStyle,
-        points: [[x, y]]
+        points: [[x, y]],
+        times: [Date.now()]
     })
 }
 
 function addPoint(x, y){
-    data[data.length - 1].points.push([x, y])
+    let curve = data[data.length - 1]
+    curve.points.push([x, y])
+    curve.times.push(Date.now())
 }
 
 function start(e){
