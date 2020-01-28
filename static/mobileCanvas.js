@@ -41,12 +41,10 @@ function drawMode(){
     if(isDrawing){
         canvas.removeEventListener('touchstart', start, false)
         canvas.removeEventListener('touchmove', draw, false)
-        canvas.removeEventListener('touchend', finish, false)
         drawBtn.textContent = 'Start Drawing'
     }else{
         canvas.addEventListener('touchstart', start, false)
         canvas.addEventListener('touchmove', draw, false)
-        canvas.addEventListener('touchend', finish, false)
         drawBtn.textContent = 'Stop Drawing'
     }
     isDrawing = !isDrawing
