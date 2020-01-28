@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const fs = require('fs')
 const PORT = 8000
 const app = express()
 
@@ -13,7 +14,15 @@ app.get('/', (req, res) => {
 })
 
 app.post('/data', (req, res) => {
-    console.log(JSON.stringify(req.body))
+    let shape = JSON.stringify(req.body)
+    let path = __dirname + '/data/shape_' + Date.now() + '.json'
+    fs.writeFile(path, shape, (err) => {
+        if(err){
+            console.error(err);
+        }else{
+            console.log('File written')
+        }
+    })
     res.send('data received')
 })
 
