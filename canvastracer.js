@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/static'))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-    res.redirect(303, '/MobileCanvas.html')
+    res.redirect(303, '/canvas.html')
 })
 
 app.post('/data', (req, res) => {

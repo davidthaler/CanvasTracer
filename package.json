@@ -1,8 +1,8 @@
 {
-  "name": "canvastracker",
+  "name": "canvastracer",
   "version": "1.0.0",
   "description": "Canvas drawing app for mobile; uploads traces of touch events",
-  "main": "canvastrack.js",
+  "main": "canvastracer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
